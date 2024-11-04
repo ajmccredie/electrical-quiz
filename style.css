@@ -1,61 +1,154 @@
-.card {
+/* Background and container */
+body.quiz-background {
+    background-color: black;
+    color: #FFD700;
+}
+
+/* Title Styling */
+.quiz-title {
+    text-align: center;
+    color: #FFD700;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* Card styling */
+.card.quiz-card {
+    background-color: #222;
+    border: 2px solid #FFD700;
     border-radius: 10px;
+    color: #FFD700;
+    padding: 20px;
+    margin: 10px;
+    max-width: 700px; /* Ensures card width allows for 2 columns on large screens */
 }
 
-.quiz-image {
-    width: 80px;
-    height: 80px;
-    max-width: 80px;
-    max-height: 80px;
-    object-fit: cover;
-    overflow: hidden; /* Prevents larger images from expanding outside */
-    margin: 0 auto 10px auto;
-    display: block;
+@media (min-width: 988px) {
+    .card.quiz-card {
+        max-width: 900px;
+        padding: 30px;
+    }
+}
+
+/* Feedback box styling */
+#feedback-box {
+    background-color: #f2f2f2;
+    color: #333;
+    border: 2px solid #FFD700;
     border-radius: 8px;
+    padding: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
 }
 
-.image-button {
+/* Button styling */
+.btn-gold {
+    background-color: #FFD700;
+    color: black;
+    border: none;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btn-gold:hover {
+    background-color: #ffc700;
+    color: black;
+}
+
+.btn-outline-gold {
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    background-color: transparent;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-gold:hover {
+    background-color: #FFD700;
+    color: black;
+}
+
+/* Answer buttons with fixed width */
+.image-button, .text-answer-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15px;
-    width: 100%;
-    max-width: 150px;
+    width: 160px; /* Fixed width for consistent size */
     text-align: center;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
+    background-color: #444;
+    color: #FFD700;
+    border: 2px solid #FFD700;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
     min-height: 150px;
+    margin: 5px;
 }
 
-.image-button:hover {
-    background-color: #e2e6ea;
+.image-button:hover, .text-answer-button:hover {
+    background-color: #555;
+    color: #FFD700;
 }
 
+/* Image within buttons */
+.image-button img, .text-answer-button img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Consistent 2x2 grid layout for answer buttons */
+.answer-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    justify-content: center;
+}
+
+@media (min-width: 400px) {
+    .answer-list {
+        grid-template-columns: repeat(2, minmax(160px, 1fr)); /* 2 columns for small screens */
+    }
+}
+
+@media (min-width: 780px) {
+    .answer-list {
+        grid-template-columns: repeat(2, 1fr); /* Maintain 2 columns on medium and large screens */
+    }
+}
+
+/* General button styling */
 button {
     width: 100%;
     margin: 5px 0;
 }
 
-#feedback {
-    font-size: 1.2em;
-    font-weight: bold;
+/* Progress bar */
+#progress {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    max-width: 100%;
+    margin-top: 10px;
 }
 
-.text-answer-button {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    text-align: center;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+.progress-icon {
+    font-size: calc(20px - 0.5vw);
+    margin: 2px;
 }
 
-.text-answer-button:hover {
-    background-color: #e2e6ea;
+#progress .correct {
+    color: green;
+}
+#progress .incorrect {
+    color: red;
 }
