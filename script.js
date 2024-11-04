@@ -43,59 +43,79 @@ function showQuestion(question) {
     const questionText = document.getElementById("question-text");
     const answerList = document.getElementById("answer-list");
     const feedback = document.getElementById("feedback");
-    
+
     questionText.textContent = question.question;
     answerList.innerHTML = ''; // Clear previous answers
     feedback.textContent = ''; // Clear feedback
 
-    // Shuffle and display answers
     const shuffledAnswers = [...question.answers];
     shuffleArray(shuffledAnswers);
 
     shuffledAnswers.forEach((answer) => {
-        const button = document.createElement('button');
-        button.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center', 'image-button');
+        const colDiv = document.createElement('div');
+        colDiv.classList.add('col-md-6', 'col-sm-12', 'mb-3'); // Responsive layout
 
-        // Check if the answer has an image
+        const button = document.createElement('button');
+        button.classList.add(answer.image ? 'image-button' : 'text-answer-button');
+
         if (answer.image) {
             const img = document.createElement('img');
             img.src = answer.image;
-            img.alt = answer.text; // Alt text for accessibility
-            img.classList.add('quiz-image', 'me-2'); // Add classes for styling
+            img.alt = answer.text || "Answer Image"; // Alt text for accessibility
+
+            // Apply consistent styling directly in JavaScript
+            img.style.width = "120px";
+            img.style.height = "120px";
+            img.style.objectFit = "cover";
+            img.style.overflow = "hidden";
+            img.style.borderRadius = "8px";
+            img.style.marginBottom = "10px";
+            img.style.marginTop = "10px";
+
             button.appendChild(img);
-            button.textContent = answer.text; // Adding text to the button for clarity
-        } else {
-            button.textContent = answer.text; // For text-only answers
         }
 
-        button.onclick = () => handleAnswerSelection(answer);
-        answerList.appendChild(button);
+        const text = document.createElement('span');
+        text.textContent = answer.text;
+        button.appendChild(text);
+
+        button.onclick = () => handleAnswerSelection(answer, button);
+        colDiv.appendChild(button);
+        answerList.appendChild(colDiv);
     });
 }
 
-function handleAnswerSelection(answer) {
+
+function handleAnswerSelection(answer, selectedButton) {
     const feedback = document.getElementById("feedback");
     const nextButton = document.getElementById("next-button");
-    const playAgainButton = document.getElementById("play-again-button");
+    const answerList = document.getElementById("answer-list");
 
+    // Reset feedback classes
+    feedback.classList.remove("text-danger", "text-success");
+
+    // Provide feedback based on the correctness of the answer
     if (answer.correct) {
         feedback.textContent = "Correct!";
         feedback.classList.add("text-success");
-        feedback.classList.remove("text-danger");
         score++;
     } else {
-        feedback.textContent = `Wrong! ${answer.explanation}`; // Ensure explanation shows here
+        feedback.textContent = `Wrong! ${answer.explanation}`;
         feedback.classList.add("text-danger");
-        feedback.classList.remove("text-success");
     }
 
+    // Hide all other answers except the selected one
+    Array.from(answerList.children).forEach((colDiv) => {
+        if (!colDiv.contains(selectedButton)) {
+            colDiv.style.display = "none"; // Hide unselected answers
+        }
+    });
+
+    // Show feedback and the Next button
+    feedback.classList.remove("d-none");
     nextButton.classList.remove("d-none");
     nextButton.onclick = endQuiz;
-
-    // Show the play again button only after the quiz ends
-    playAgainButton.classList.add("d-none");
 }
-
 
 function endQuiz() {
     document.getElementById("question-container").classList.add("d-none");

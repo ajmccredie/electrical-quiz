@@ -3,9 +3,36 @@
 }
 
 .quiz-image {
-    max-width: 50px; /* Adjust the size as needed */
-    height: auto;
-    margin-right: 10px; /* Space between image and text */
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: cover;
+    overflow: hidden; /* Prevents larger images from expanding outside */
+    margin: 0 auto 10px auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.image-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    width: 100%;
+    max-width: 150px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    min-height: 150px;
+}
+
+.image-button:hover {
+    background-color: #e2e6ea;
 }
 
 button {
@@ -15,20 +42,20 @@ button {
 
 #feedback {
     font-size: 1.2em;
+    font-weight: bold;
 }
 
-#answer-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 15px; /* Space between items */
+.text-answer-button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
-.image-button {
-    display: flex;
-    flex-direction: column; /* Stack image and text */
-    justify-content: center;
-    align-items: center;
-    border: none; /* Remove default button border */
-    padding: 10px; /* Add some padding */
-    background-color: #f8f9fa; /* Light background for visibility */
+.text-answer-button:hover {
+    background-color: #e2e6ea;
 }
